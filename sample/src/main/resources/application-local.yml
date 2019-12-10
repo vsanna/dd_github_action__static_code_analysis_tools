@@ -1,0 +1,32 @@
+##### common
+server:
+  port: ${PORT:8100}
+  tomcat:
+    max-threads: 100
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["health", "info", "env"]
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+
+##### for Spring
+spring:
+  profiles:
+    active: ${PROFILE:debug}
+  datasource:
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    username: root
+    password:
+    url: jdbc:mysql://127.0.0.1:3309/sampleapp
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: ["classpath:/db/migration"]
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:16379}
+  kafka:
+    bootstrap-servers: localhost:9095

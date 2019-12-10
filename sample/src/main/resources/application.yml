@@ -1,0 +1,119 @@
+#### common
+server:
+  port: ${PORT:8100}
+  tomcat:
+    max-threads: ${TOMCAT_MAX_THREADS:400}
+    min-spare-threads: ${TOMCAT_MIN_THREADS:20}
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: ["health"]
+#  metrics:
+#    export:
+#      datadog:
+#        enabled: ${DD_ENABLED:false}
+#        api-key: ${DD_API_KEY:EMPTY_KEY}
+#        application-key: ${DD_APPLICATION_KEY:EMPTY_KEY}
+#        step: ${DD_FLUSH_INTERVAL:20s}
+logging:
+  level:
+    root: info
+
+#### for Spring
+spring:
+  profiles:
+    active: ${PROFILE:local}
+  application:
+    name: sampleapp
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 512KB
+      max-request-size: 512KB
+#  jackson:
+#    serialization:
+#      WRITE_DATES_AS_TIMESTAMPS: false
+#    date-format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+#    time-zone: "UTC"
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    type: org.apache.tomcat.jdbc.pool.DataSource
+    url: ${DB_URL:mysql://localhost:3309/sampleapp}
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:}
+    # https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      # 20 conn/pod -> 1000conn/50pod. r4large=1000
+      maximum-pool-size: 10
+
+  #    tomcat:
+#      max-active: ${DATASOURCE_MAX_ACTIVE:100}
+#      min-idle: ${DATASOURCE_DB_CONNECTIONS:50}
+#      max-idle: ${DATASOURCE_DB_CONNECTIONS:50}
+#      initial-size: ${DATASOURCE_DB_CONNECTIONS:50}
+#      max-wait: ${DATASOURCE_MAX_WAIT:2000}
+#      time-between-eviction-runs-millis: ${DATASOURCE_TIME_BETWEEN_EVICTION_RUNS_MILLS:5000}
+#      test-while-idle: ${DATASOURCE_TEST_WHILE_IDLE:true}
+#      validation-query: "SELECT 1 FROM DUAL"
+#      validation-query-timeout: 2
+
+  flyway:
+    enabled: false
+    baseline-on-migrate: false
+    locations: ["classpath:/db/migration"]
+  ### for redis
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    timeout: ${REDIS_TIMEOUT_MS:1000}
+    jedis:
+      pool:
+        max-idle: ${REDIS_CONNECTIONS:10}
+        min-idle: ${REDIS_CONNECTIONS:10}
+        max-active: ${REDIS_CONNECTIONS:20}
+        max-wait: ${REDIS_TIMEOUT_MS:1000}
+  ### for ops
+  sleuth:
+    sampler:
+      percentage: ${SLEUTH_SAMPLER_PR:1:0}
+      probability: ${SLEUTH_SAMPLER_PR:1.0}
+  zipkin:
+    sender:
+      type: web
+    base-url: ${ZIPKIN_URL:http://zipkin-service:9411/}
+
+#mybatis:
+#  configuration:
+#    default-statement-timeout: ${DB_STATEMENT_TIMEOUT_SEC:20}
+
+metrics:
+  target:
+    environment: ${PLATFORM_ENV:local}
+
+# for graceful shutdown
+graceful-shutdown:
+  tomcat:
+    shutdown-grace-period-in-seconds: ${TOMCAT_SHUTDOWN_GRACE_PERIOD_SECONDS:20}
+    shutdown-now-grace-period-in-seconds: ${TOMCAT_SHUTDOWN_NOW_GRACE_PERIOD_SECONDS:10}
+    wait-before-close-in-seconds: ${TOMCAT_WAIT_BEFORE_CLOSE_IN_SECONDS:20}
+    # if this value is set to 0, keep-alive will be disabled
+    keep-alive-timeout-in-seconds: ${TOMCAT_KEEP_ALIVE_TIMEOUT_IN_SECONDS:20}
+
+aws:
+  # see https://docs.aws.amazon.com/ja_jp/sdk-for-java/v2/developer-guide/java-dg-roles.html
+  #Will get secret-key, access-key-id, region from InstanceProfileCredentialsProvider
+  # APP_USER, APP_PASSWORD are passed from k8s secret. SRE team has set them.
+  secret-manager:
+    request-key-id: ${AWS_SECRET_MANAGER_REQUEST_KEY_ID:arn-id}
+    username-field-name: ${AWS_SECRET_MANAGER_USER_NAME_KEY:APP_USER}
+    password-field-name: ${AWS_SECRET_MANAGER_USER_PASS_KEY:APP_PASSWORD}
