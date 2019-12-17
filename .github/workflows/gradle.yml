@@ -22,7 +22,7 @@ jobs:
       - name: Build with Gradle
         run: ./sample/gradlew build
       - name: Upload artifacts
-        uses: actions/upload-artifact@1
+        uses: actions/upload-artifact@v1
         with:
           name: all-reports
           path: ./sample/out
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download
-        uses: actions/download-artifact@1
+        uses: actions/download-artifact@v1
         with:
           name: all-reports
       - name: echo
