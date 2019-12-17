@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <Match>
+        <Package name="dev.ishikawa.sca.sample" />
+        <!--
+             <But category="CORRECTNESS" />
+             <But code="SA" />
+             <But pattern="SA_FIELD_SELF_COMPARISON" />
+             <But category="BAD_PRACTICE"
+                  code="RV"
+                  pattern="SA_FIELD_SELF_COMPARISON  />
+             -->
+        <!--
+             <confidence value="2" />
+             -->
+        <!--
+            // 他にも各種多様なチェック対象及びチェックルールの絞り込みが可能
+             -->
+    </Match>
+</FindBugsFilter>
