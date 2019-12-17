@@ -22,18 +22,27 @@ import java.time.LocalDateTime;
 @RestController
 @AllArgsConstructor
 public class MessagesController extends BaseController {
+    static Gson gson = new Gson();
     private MessageService messageService;
     private MessageRepository messageRepository;
-    static Gson gson = new Gson();
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{messageId}")
     public ResponseEntity<String> destroy(@PathVariable("messageId") String messageId) {
         Gson gson = new Gson();
 
-        for(int i = 0; i < 10000000; i++) {
-            for(int j = 0; j < 10000000; j++) {
-                System.out.println(i / j);
-                System.out.println("should be detected");
+        for (int i = 0; i < 10000000; i++) {
+            System.out.println("detected?: " + i);
+            for (int j = 0; j < 10000000; j++) {
+                System.out.println("detected?: " + j);
+                for (int k = 0; k < 10000000; k++) {
+                    System.out.println("detected?: " + k);
+                    for (int l = 0; l < 10000000; l++) {
+                        System.out.println("detected?: " + l);
+                        for (int m = 0; m < 10000000; m++) {
+                            System.out.println("detected?: " + m);
+                        }
+                    }
+                }
             }
         }
 
@@ -52,7 +61,7 @@ public class MessagesController extends BaseController {
                 .senderId(request.getSenderId())
                 .body(request.getBody())
                 .sentAt(LocalDateTime.now()).build();
-        messageRepository.save(message); // should be in messageService
+        messageRepository.save(message);
         messageService.addToList(key, message);
 
         return buildResponse(gson.toJson(message));
