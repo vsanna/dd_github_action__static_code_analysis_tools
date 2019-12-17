@@ -1,2 +1,5 @@
 pmd-bin-6.20.0/
 .DS_Store
+infer-out
+spotbugs-3.1.12/
+.gradle

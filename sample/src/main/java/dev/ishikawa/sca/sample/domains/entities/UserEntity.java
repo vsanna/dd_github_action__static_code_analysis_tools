@@ -48,15 +48,6 @@ public class UserEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserEntity that = (UserEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(userName, that.userName);
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(id, userName);
     }

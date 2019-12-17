@@ -21,6 +21,7 @@ public class MessageEntity {
     private Long senderId;
     private Long receiverId;
     private LocalDateTime sentAt;
+    private String encryptedId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +54,7 @@ public class MessageEntity {
         this.senderId = senderId;
     }
 
+
     @Basic
     @Column(name = "receiver_id", nullable = false)
     public Long getReceiverId() {
@@ -74,19 +76,17 @@ public class MessageEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MessageEntity that = (MessageEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(body, that.body) &&
-                Objects.equals(senderId, that.senderId) &&
-                Objects.equals(receiverId, that.receiverId) &&
-                Objects.equals(sentAt, that.sentAt);
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(id, body, senderId, receiverId, sentAt);
+    }
+
+    @Basic
+    @Column(name = "encrypted_id", nullable = false)
+    public String getEncryptedId() {
+        return encryptedId;
+    }
+
+    public void setEncryptedId(String encryptedId) {
+        this.encryptedId = encryptedId;
     }
 }

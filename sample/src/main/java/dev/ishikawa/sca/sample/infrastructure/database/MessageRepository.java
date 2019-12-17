@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface MessageRepository extends JpaRepository<MessageEntity, Long>, JpaSpecificationExecutor<MessageEntity> {
     public MessageEntity findBySenderId(Long senderId);
     public MessageEntity findByReceiverId(Long receiverId);
+    public MessageEntity findByEncryptedId(String encryptedId);
 }

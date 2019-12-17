@@ -30,7 +30,14 @@ public class MessagesController extends BaseController {
     public ResponseEntity<String> destroy(@PathVariable("messageId") String messageId) {
         Gson gson = new Gson();
 
-        MessageEntity messageEntity = messageRepository.findById(messageId);
+        for(int i = 0; i < 10000000; i++) {
+            for(int j = 0; j < 10000000; j++) {
+                System.out.println(i / j);
+                System.out.println("should be detected");
+            }
+        }
+
+        MessageEntity messageEntity = messageRepository.findByEncryptedId(messageId);
         messageRepository.delete(messageEntity);
         return buildResponse(gson.toJson(messageEntity));
     }
