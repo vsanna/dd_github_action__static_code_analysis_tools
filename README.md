@@ -1,6 +1,17 @@
-## start up
-- redis-server --port 16379
-- mysql.server start
+## initial setup
+```bash
+# 1. create database & tables. see init.sql and sample/src/main/resources/db/migration
+```
+
+## how to start
+
+```bash
+$ redis-server --port 16379
+$ mysql.server start
+# if you need
+$ cd sample
+$ ./gradlew bootRun
+```
 
 ## test usecase
 
