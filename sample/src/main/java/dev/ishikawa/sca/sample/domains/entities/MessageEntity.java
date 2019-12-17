@@ -23,6 +23,7 @@ public class MessageEntity {
     private LocalDateTime sentAt;
     private String encryptedId;
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -53,7 +54,6 @@ public class MessageEntity {
     public void setSenderId(Long senderId) {
         this.senderId = senderId;
     }
-
 
     @Basic
     @Column(name = "receiver_id", nullable = false)
