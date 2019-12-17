@@ -45,6 +45,11 @@ tasks.withType(SpotBugsTask) {
     }
 }
 
+task 'prePush' {
+    doFirst { println "RUNNING PREPUSH TASKS" }
+}
+prePush.dependsOn checkstyleMain, pmdMain, spotbugsMain, dependencyCheckAnalyze
+
 group = 'dev.ishikawa.sca'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'

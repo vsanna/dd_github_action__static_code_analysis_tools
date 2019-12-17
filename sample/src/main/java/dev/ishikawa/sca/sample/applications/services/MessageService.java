@@ -31,7 +31,6 @@ public class MessageService {
         Gson gson = new Gson();
         SetOperations<String, String> ops = redisTemplate.opsForSet();
         Set<String> result = ops.members(key);
-        log.info("result: {}", result);
 
         if (Objects.isNull(result)) {
             return Collections.emptyList();

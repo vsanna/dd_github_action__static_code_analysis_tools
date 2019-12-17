@@ -30,21 +30,23 @@ public class MessagesController extends BaseController {
     public ResponseEntity<String> destroy(@PathVariable("messageId") String messageId) {
         Gson gson = new Gson();
 
-        for (int i = 0; i < 10000000; i++) {
-            System.out.println("detected?: " + i);
-            for (int j = 0; j < 10000000; j++) {
-                System.out.println("detected?: " + j);
-                for (int k = 0; k < 10000000; k++) {
-                    System.out.println("detected?: " + k);
-                    for (int l = 0; l < 10000000; l++) {
-                        System.out.println("detected?: " + l);
-                        for (int m = 0; m < 10000000; m++) {
-                            System.out.println("detected?: " + m);
+        for (int i = 0; i < 10; i++) {
+            System.out.println("detected?: i");
+            for (int j = 0; j < 10; j++) {
+                System.out.println("detected?: j");
+                for (int k = 0; k < 10; k++) {
+                    System.out.println("detected?: k");
+                    for (int l = 0; l < 10; l++) {
+                        System.out.println("detected?: l");
+                        for (int m = 0; m < 10; m++) {
+                            System.out.println("detected?: m");
                         }
                     }
                 }
             }
         }
+
+        String valNotUsed = "should be detected";
 
         MessageEntity messageEntity = messageRepository.findByEncryptedId(messageId);
         messageRepository.delete(messageEntity);
