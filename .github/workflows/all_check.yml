@@ -1,12 +1,13 @@
-name: run all check
+name: run all checks
+
 
 # on: [push, pull_request]
+# on: pull_request
 on: 
   push:
   pull_request:
     branches: 
       - master
-
 jobs:
   # 各種toolsごとにbuild & runすればいい
   build_check_upload:
@@ -20,15 +21,15 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
-      - name: move
-        run: cd ./sample
-      - name: Build with Gradle
-        run: ./gradlew checkstyleMain
+      - name: Run all checks 
+        run: ./sample/gradlew -b sample/build.gradle checkstyleMain pmdMain spotbugsMain dependencyCheckAnalyze
+      - name: debug
+        run: ./sample
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
           name: all-reports
-          path: ./out
+          path: ./sample/out
   printout:
     runs-on: ubuntu-latest
     needs: [build_check_upload]

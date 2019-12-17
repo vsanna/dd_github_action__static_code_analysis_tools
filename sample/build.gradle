@@ -13,7 +13,7 @@ plugins {
     id 'checkstyle'
     id 'com.github.spotbugs' version '2.0.0'
     id 'pmd'
-    id 'net.ltgt.errorprone' version '1.1.1'
+//    id 'net.ltgt.errorprone' version '1.1.1'
 
     // owasp check: https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/index.html
     id "org.owasp.dependencycheck" version "5.2.4"
@@ -74,7 +74,7 @@ dependencies {
         errorproneVersion = '2.3.4'
     }
 
-    errorprone("com.google.errorprone:error_prone_core:${errorproneVersion}")
+//    errorprone("com.google.errorprone:error_prone_core:${errorproneVersion}")
     // to support JDK8
 //    errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
     implementation("org.springframework.boot:spring-boot-starter-web")
