@@ -1,19 +1,15 @@
-/*
-plugin = propertyとtaskを生やす
-* */
-
+import com.github.spotbugs.SpotBugsTask
 
 plugins {
     id 'org.springframework.boot' version '2.2.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
 
-
     // static code analysis
     id 'checkstyle'
     id 'com.github.spotbugs' version '2.0.0'
     id 'pmd'
-//    id 'net.ltgt.errorprone' version '1.1.1'
+    // id 'net.ltgt.errorprone' version '1.1.1'
 
     // owasp check: https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/index.html
     id "org.owasp.dependencycheck" version "5.2.4"
@@ -37,12 +33,12 @@ spotbugs {
     effort = 'max'
 }
 
-tasks.withType(com.github.spotbugs.SpotBugsTask) {
-    ignoreFailures = true // buildを失敗扱いしない
+tasks.withType(SpotBugsTask) {
+    ignoreFailures = true
     effort = 'max'
     reportLevel = 'high' // 'low'
-    // excludeFilter
-//    includeFilter = file('rulesets/spotbugs/spotbugs-rules.xml')
+    // excludeFilter = file('rulesets/spotbugs/spotbugs-rules.xml')
+    // includeFilter = file('rulesets/spotbugs/spotbugs-rules.xml')
     reports {
         xml.enabled = false
         html.enabled = true
@@ -74,17 +70,14 @@ dependencies {
         errorproneVersion = '2.3.4'
     }
 
-//    errorprone("com.google.errorprone:error_prone_core:${errorproneVersion}")
+    // errorprone("com.google.errorprone:error_prone_core:${errorproneVersion}")
     // to support JDK8
-//    errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
+    // errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-    // application -> JPA ->
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    // this is included in spring-boot-starter-data-jpa
-    // implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
     implementation 'org.apache.kafka:kafka-streams'
     implementation("org.apache.tomcat:tomcat-jdbc:${tomcatJdbcVersion}")
@@ -93,10 +86,7 @@ dependencies {
     implementation 'org.springframework.kafka:spring-kafka'
 
     // redis
-    // compile ('org.springframework.boot:spring-boot-starter-redis:1.4.7.RELEASE')
     implementation('org.springframework.boot:spring-boot-starter-data-redis')
-    // implementation('org.springframework.data:spring-data-redis')
-    // implementation("redis.clients:jedis:${jedisVersion}")
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -105,17 +95,12 @@ dependencies {
     implementation("com.sun.xml.bind:jaxb-impl:2.4.0-b180830.0438")
     implementation("com.sun.xml.bind:jaxb-core:2.3.0")
     implementation("com.sun.activation:javax.activation:1.2.0")
-//    compile("javax.validation.validation-api:2.0.1.Final") // TODO: ymmでなぜ入っているのか
-//    compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.GA'
 
     // gson
     implementation('com.google.code.gson:gson')
 
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
-
-//    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringVersion}")
-
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
