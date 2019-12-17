@@ -1,6 +1,7 @@
 ## initial setup
 ```bash
 # 1. create database & tables. see init.sql and sample/src/main/resources/db/migration
+# 2. no more action is requierd
 ```
 
 ## how to start
@@ -8,7 +9,6 @@
 ```bash
 $ redis-server --port 16379
 $ mysql.server start
-# if you need
 $ cd sample
 $ ./gradlew bootRun
 ```
@@ -27,16 +27,10 @@ curl -X GET localhost:8100/v1/sample/users/2/messages/ | jq
 - [ ] dockerize
 
 
-## static code analysis
+## static code analysis tools
 - PMD
-    - pmd -d sample/src -R sample/rulesets/basic.xml -f text
-    -
 - spotbugs
-    - 本当にエラーが出そうなものが大正
 - CheckStyle
-    - integrate with Gradle
-    - checkstyle.xml
-    - gradleのtaskとしてgenerate report
-    - [ ] how to integrate with github action(or other CI)
-- CodeGru
 - google errorprone
+- CodeGuru
+- owasp dependency check
