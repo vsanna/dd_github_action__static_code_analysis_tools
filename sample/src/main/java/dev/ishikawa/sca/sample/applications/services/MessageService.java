@@ -42,7 +42,7 @@ public class MessageService {
 
     private Optional<String> shouldBeDetected() {
         int a = 1 / 0;
-        System.out.println(a);
+        System.out.println("a: " + a);
         return null;
     }
 }
