@@ -23,8 +23,6 @@ jobs:
           java-version: 1.11
       - name: Run all checks 
         run: ./sample/gradlew -b sample/build.gradle checkstyleMain pmdMain spotbugsMain dependencyCheckAnalyze
-      - name: debug
-        run: ./sample
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
